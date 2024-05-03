@@ -1,12 +1,12 @@
 const express = require("express");
 const authRouter = require("./auth-route");
-const taskRouter = require("./task-route");
+const doctorRouter = require("./doctor-route");
 const router = express.Router();
 
 router.get("/", (req, res) => {
     res.send("HATEOAS will be implemented soon");
 });
-router.use("/auth", authRouter);
-router.use("/task", taskRouter);
+router.use("/user", authRouter);
+router.use("/doctor", doctorRouter);
 
 module.exports = router;

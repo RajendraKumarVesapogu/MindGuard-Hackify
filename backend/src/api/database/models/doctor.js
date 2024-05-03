@@ -2,24 +2,30 @@ const sequelize = require('../connection');
 
 const { Sequelize, DataTypes } = require('sequelize');
 
-const Priority = sequelize.define('Priority', {
+const Doctor = sequelize.define('Doctor', {
 
-  priority_id : {
+  doctor_id : {
     type : DataTypes.INTEGER,
     primaryKey: true,
     allowNull : false,
     autoIncrement : true
   },
-  priority_description: {
+  doctor_phone_number: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
   },
-},
+  doctor_password : {
+    type : DataTypes.STRING,
+    allowNull : false,
+  },
+ 
+
+}, 
 {
-    // Additional options
+  // Additional options
 }
 );
 
 
-module.exports = Priority;
+module.exports = Doctor;

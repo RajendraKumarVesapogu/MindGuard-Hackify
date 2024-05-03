@@ -1,15 +1,8 @@
 const express = require("express");
-const {login} = require("../controllers/auth-controller");
+const {login,getProfile} = require("../controllers/auth-controller");
 const loginRouter = express.Router();
 
-
-// TODO : implement HATEOAS
-loginRouter.get("/", (req, res) => {
-	res.json({
-		status: "to be implemented login HATEOAS",
-	});
-});
-
 loginRouter.post("/login", login);
+loginRouter.get("/profile", getProfile);
 
 module.exports = loginRouter;

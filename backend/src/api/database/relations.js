@@ -1,41 +1,26 @@
 const sequelize = require("./connection");
 
 const User = require("./models/user");
-const Priority = require("./models/priority");
-const Status = require("./models/status");
-const Task = require("./models/task");
-const SubTask = require("./models/subTask");
+const Doctor = require("./models/doctor");
+const History = require("./models/history");
 
 
 const setRelations = () => {
 
-    User.hasMany(Task, {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE'
+    Doctor.hasMany(User, {
+        foreignKey: {
+            name: "doctor_id",
+            allowNull: false,
+        },
     });
 
-    Task.belongsTo(User, {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE'
+    User.hasMany(History, {
+        foreignKey: {
+            name: "history_user_id",
+            allowNull: false,
+        },
     });
 
-    Task.hasMany(SubTask, {
-        foreignKey: 'task_id',
-        onDelete: 'CASCADE'
-    });
-
-    SubTask.belongsTo(Task, {
-        foreignKey: 'task_id',
-        onDelete: 'CASCADE'
-    });
-
-    Task.hasOne(Status, {
-        foreignKey: 'task_status',
-    });
-
-    User.hasOne(Priority, {
-        foreignKey: 'user_priority',
-    });
 
 };
 

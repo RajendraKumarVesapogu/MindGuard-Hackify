@@ -6,10 +6,11 @@ const cors = require("cors");
 const controlRouter = require("./api/routes/index");
 const authenticate = require("./api/middleware/authenticate");
 const app = express();
-const schedule = require("node-schedule");
-const {updateTaskPriority, checkForDueTasks} = require('./api/util/cronService');
 const port = envVariables.serverPortNumber;
 
+const {sendMsg} = require('./api/util/gptService');
+
+// sendMsg(`you are a mental therapist and you are trying to find the mental conditions of the patient. here the text data that the user is consuming please predict the mental condition of the user. Text Data: I am worth less and there is no meaning to life `)
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -18,17 +19,6 @@ app.use(authenticate);
 app.use("/", controlRouter);
 
 
-// Cron Job
-const rule = new schedule.RecurrenceRule();
-rule.hour = 18;
-rule.minute = 30;
-const job = schedule.scheduleJob(rule, async function(){
-	
-	await checkForDueTasks();
-	await updateTaskPriority();
-});
-
-// Server start
 const server = app.listen(port, () => {
 	console.log("listening on portnumber : " + port.toString());
 	setRelations();
@@ -46,4 +36,4 @@ server.on("connection", () => {
 });
 
 
-process.stdin.resume(); // so the program will not close instantly
+process.stdin.resume(); 

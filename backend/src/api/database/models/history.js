@@ -2,24 +2,31 @@ const sequelize = require('../connection');
 
 const { Sequelize, DataTypes } = require('sequelize');
 
-const Status = sequelize.define('Status', {
+const History = sequelize.define('History', {
 
-  status_id : {
+  history_id : {
     type : DataTypes.INTEGER,
     primaryKey: true,
     allowNull : false,
     autoIncrement : true
   },
-  status_description: {
-    type: DataTypes.STRING,
+  history_user_id: {
+    type: DataTypes.INTEGER,
     unique: true,
     allowNull: false,
   },
+  history_data : {
+    type : DataTypes.STRING,
+    allowNull : true,
+  }
+ 
+
 }, 
 {
-        // Additional options
+  // Additional options
+  timestamps: true
 }
 );
 
 
-module.exports = Status;
+module.exports = History;

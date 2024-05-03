@@ -10,16 +10,27 @@ const User = sequelize.define('User', {
     allowNull : false,
     autoIncrement : true
   },
+  user_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   user_phone_number: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
   },
-  user_priority : {
-    type : DataTypes.INTEGER,
+  user_password : {
+    type : DataTypes.STRING,
     allowNull : false,
   },
-
+  user_feedback : {
+    type : DataTypes.STRING,
+    allowNull : true,
+  },
+  doctor_id : {
+    type : DataTypes.INTEGER,
+    allowNull : false,
+  }
  
 
 }, 
