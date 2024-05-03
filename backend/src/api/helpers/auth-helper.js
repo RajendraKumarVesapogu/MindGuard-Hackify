@@ -15,3 +15,11 @@ module.exports.updateUser = async (user) => {
 module.exports.deleteUser = async (user) => {
     return await user.destroy();
 };
+
+module.exports.getAllUsersByDoctorId= async(doctorId) => {
+    return await User.findAll({
+        where: {
+          doctor_id: doctorId
+        }
+    });
+};
