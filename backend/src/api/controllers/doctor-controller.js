@@ -1,27 +1,23 @@
 const {getDoctorByMobile} = require('../helpers/doctor-helper');
 const {createUser, updateUser, deleteUser, getUserById,getAllUsersByDoctorId} = require('../helpers/auth-helper');
 const {generateAuthToken, validatePassword} = require('../util/jwtService');
+const responder = require('../util/responseService');
 module.exports.login = async (req, res) => {
     try {
         let currentUser = await getDoctorByMobile(req.body.phone_number);
         currentUser = currentUser != null? currentUser.dataValues:null;
         if (!currentUser) {
-            return res.status(401).json({
-                message: "User not found",
-            });
+            responder.respondUnAuthentication(res);
+            
         }
         if (currentUser.doctor_password !== req.body.password) {
-            return res.status(401).json({
-                message: "Invalid password",
-            });
+            responder.respondUnAuthentication(res);
         }
         let authToken = await generateAuthToken(currentUser.doctor_phone_number);
         let user = Object.assign(currentUser, { authToken: authToken });
-        return res.status(200).json(user);
+        responder.respond(res, user, responder.SUCCESS, "Login Success", authToken);
     } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respondUnAuthentication(res);
     }
 }
 
@@ -30,11 +26,9 @@ module.exports.getProfile = async (req, res) => {
     try {
         let userId = req.query.userId;
         let user = await getUserById(userId);
-        return res.status(200).json(user);
+        responder.respond(res, user, responder.SUCCESS, "User Profile");
     } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respond(res, null, responder.FAILED, error.message);
     }
 }
 
@@ -44,31 +38,30 @@ module.exports.createUser = async (req, res) => {
         console.log(req.decodedToken);
         body = Object.assign(body, { doctor_id: req.decodedToken.user_id });
         let user = await createUser(req.body);
-        return res.status(200).json(user);
+        responder.respond(res, user, responder.SUCCESS, "User Created");
     } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respond(res, null, responder.FAILED, error.message);
     }
 }
 module.exports.updateUser = async (req, res) => {
     try {
-        let user = await updateUser(req.body);
-        return res.status(200).json(user);
+        let body = req.body;
+        let user = await getUserById(body.user_id);
+        console.log(user);
+        // let user = await updateUser(req.body);
+        user['user_feedback'] = body['user_feedback'];
+        let updatedUser = await updateUser(user);
+        responder.respond(res, updatedUser, responder.SUCCESS, "User Updated");
     } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respond(res, null, responder.FAILED, error.message);
     }
 }
 module.exports.deleteUser = async (req, res) => {
     try {
         let user = await deleteUser(req.body);
-        return res.status(200).json(user);
+        responder.respond(res, user, responder.SUCCESS, "User Deleted");
     } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respond(res, null, responder.FAILED, error.message);
     }
 }
 module.exports.getAllUser= async (req,res)=>{
@@ -77,12 +70,8 @@ module.exports.getAllUser= async (req,res)=>{
         console.log(doctorId);
         const users = await getAllUsersByDoctorId(doctorId);
         console.log(users);
-        return res.status(200).json(
-            users
-        )
+        responder.respond(res,users,responder.SUCCESS,"All Users");
     }catch(error){
-        return res.status(401).json({
-            message: error.message,
-        });
+        responder.respond(res, null, responder.FAILED, error.message);
     }
 }

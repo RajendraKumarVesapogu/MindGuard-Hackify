@@ -11,7 +11,6 @@
 //         messages: [{ role: 'user', content: msg }],
 //         model: 'gpt-3.5-turbo',
 //     });
-//     console.log(chatCompletion.choices[0])
 //     return chatCompletion.choices[0];
 
 // }
