@@ -1,0 +1,75 @@
+#profile{
+    height: 90px;
+    width: 90px;
+}
+#body{
+    width: 290px;
+}
+
+#name{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#title{
+    font-size: 16px;
+    font-weight: bold;
+    color: #1D2088;
+    font-style: italic;
+}
+
+#reply{
+    margin-top: 20px;
+    padding: 10px 20px;
+  margin: 0 4px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: #4fb6df;
+  color: rgb(2, 2, 2);
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+#home{
+    height: 40px;
+    width: 40px;
+}
+
+#profile{
+    height: 40px;
+    width: 40px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .nav {
+    display: flex;
+    width: 100%;
+    margin: 0; /* Remove any default margins */
+  }
+  
+  .button-container {
+    flex-grow: 1;
+    width: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(43, 123, 155);
+    margin-right: 2px;
+  }
+
+  .button-container:last-child {
+    margin-right: 0; /* Remove margin from the last button container */
+  }
+  
+  .button-container button {
+    width: 100%;
+    border: white;
+    border-width: 5px;
+    cursor: pointer;
+    background-color: rgb(125, 193, 219);
+  }
+  
