@@ -15,7 +15,7 @@ const {sendMsg} = require('./api/util/gptService');
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(authenticate);
+// app.use(authenticate);
 app.use("/", controlRouter);
 
 

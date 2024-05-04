@@ -1,7 +1,9 @@
 const { validateToken } = require("../util/jwtService");
 
 module.exports = function (req, res, next) {
+	console.log(req.originalUrl)
 	if (req.originalUrl == "/user/login" || req.originalUrl == "/doctor/login") {
+		console.log("login")
 		return next();
 	}
 

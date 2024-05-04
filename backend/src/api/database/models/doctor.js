@@ -28,6 +28,7 @@ const Doctor = sequelize.define('Doctor', {
 
 }, 
 {
+  timestamps:false
   // Additional options
 }
 );

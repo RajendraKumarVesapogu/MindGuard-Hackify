@@ -12,7 +12,7 @@ const History = sequelize.define('History', {
   },
   history_user_id: {
     type: DataTypes.INTEGER,
-    unique: true,
+    unique: false,
     allowNull: false,
   },
   history_data : {
@@ -24,7 +24,7 @@ const History = sequelize.define('History', {
 }, 
 {
   // Additional options
-  timestamps: true
+  timestamps: false
 }
 );
 

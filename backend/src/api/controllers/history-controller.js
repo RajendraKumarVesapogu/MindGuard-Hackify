@@ -14,4 +14,16 @@ module.exports.getHistory = async (req, res) => {
             message: error.message,
         });
     }
+
 }
+
+module.exports.setHistory = async(req,res) =>{
+        try{
+            let history = req.body;
+            const data = await History.create(history);
+            res.status(200).json(data.dataValues);
+        }
+        catch(err){
+            res.status(500).json(err)
+        }
+};

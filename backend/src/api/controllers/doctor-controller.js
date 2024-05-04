@@ -4,7 +4,12 @@ const {generateAuthToken, validatePassword} = require('../util/jwtService');
 const responder = require('../util/responseService');
 module.exports.login = async (req, res) => {
     try {
-        let currentUser = await getDoctorByMobile(req.body.phone_number);
+        console.log(req.body);
+        let body = req.body;
+        console.log(body.phone_number);
+        let currentUser = await getDoctorByMobile(body.phone_number);
+        console.log(currentUser);
+        console.log("------------------")
         currentUser = currentUser != null? currentUser.dataValues:null;
         if (!currentUser) {
             responder.respondUnAuthentication(res);
@@ -66,7 +71,7 @@ module.exports.deleteUser = async (req, res) => {
 }
 module.exports.getAllUser= async (req,res)=>{
     try{
-        let doctorId = req.decodedToken.user_id;
+        let doctorId = req.query.doctorId;
         console.log(doctorId);
         const users = await getAllUsersByDoctorId(doctorId);
         console.log(users);
